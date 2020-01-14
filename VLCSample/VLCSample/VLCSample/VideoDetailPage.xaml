@@ -12,7 +12,7 @@
         <local:MainViewModel />
     </ContentPage.BindingContext>
     <NavigationPage.TitleView>
-        <StackLayout BackgroundColor="Red" />
+        <StackLayout/>
     </NavigationPage.TitleView>
 
     <vlc:MediaPlayerElement LibVLC="{Binding LibVLC}" MediaPlayer="{Binding MediaPlayer}" />
