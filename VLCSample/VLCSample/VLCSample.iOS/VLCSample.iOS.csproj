@@ -132,12 +132,15 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\VLCSample\VLCSample.csproj">
-      <Project>{969F0B93-DB38-467F-8085-4C5FCA68254C}</Project>
+      <Project>{A14A9D09-CDE4-44EF-8D83-2CE75B50B415}</Project>
       <Name>VLCSample</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_play.png" />
+    <BundleResource Include="Resources\FontAwesome5Brands.otf" />
+    <BundleResource Include="Resources\FontAwesome5Regular.otf" />
+    <BundleResource Include="Resources\FontAwesome5Solid.otf" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\cats.jpg" />
