@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="VLCSample.OnlyVideoPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:local="clr-namespace:VLCSample"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+    mc:Ignorable="d">
+    <ContentPage.BindingContext>
+        <local:OnlyVideoViewModel />
+    </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <StackLayout />
+    </NavigationPage.TitleView>
+    <vlc:MediaPlayerElement
+        HorizontalOptions="FillAndExpand"
+        LibVLC="{Binding LibVLC}"
+        MediaPlayer="{Binding MediaPlayer}"
+        VerticalOptions="FillAndExpand" />
+</ContentPage>

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LibVLCSharp.Shared;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -6,42 +6,37 @@ using Xamarin.Forms.Xaml;
 namespace VLCSample
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class VideoDetailPage : ContentPage
+    public partial class OnlyVideoPage : ContentPage
     {
-        public VideoDetailPage()
+        public OnlyVideoPage(MediaPlayer mediaPlayer)
         {
             InitializeComponent();
+
+            var viewModel = BindingContext as OnlyVideoViewModel;
+            viewModel.PreviousMediaPlayer = mediaPlayer;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((MainViewModel)BindingContext).OnAppearing();
+            ((OnlyVideoViewModel)BindingContext).OnAppearing();
             DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            ((MainViewModel)BindingContext).OnDisappearing();
+            ((OnlyVideoViewModel)BindingContext).OnDisappearing();
             DeviceDisplay.MainDisplayInfoChanged -= OnMainDisplayInfoChanged;
-        }
-
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            var viewModel = BindingContext as MainViewModel;
-
-            await Navigation.PushAsync(new OnlyVideoPage(viewModel.MediaPlayer));
         }
 
         void OnMainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
         {
             MainThread.BeginInvokeOnMainThread(async () =>
             {
-                if (e.DisplayInfo.Orientation == DisplayOrientation.Landscape)
+                if (e.DisplayInfo.Orientation == DisplayOrientation.Portrait)
                 {
-                    var viewModel = BindingContext as MainViewModel;
-                    await Navigation.PushAsync(new OnlyVideoPage(viewModel.MediaPlayer));
+                    await Navigation.PopAsync();
                 }
             });
         }

@@ -1,10 +1,5 @@
-﻿using LibVLCSharp.Forms.Shared;
-using LibVLCSharp.Shared;
-using System;
-using System.Collections.Generic;
+﻿using LibVLCSharp.Shared;
 using System.ComponentModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VLCSample
 {
@@ -49,25 +44,35 @@ namespace VLCSample
         {
             Core.Initialize();
 
-            LibVLC = new LibVLC();
+            if (LibVLC is null)
+            {
+                LibVLC = new LibVLC();
 
-            var media = new Media(LibVLC,
-                "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-                FromType.FromLocation);
+                var media = new Media(LibVLC,
+                    "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+                    FromType.FromLocation);
 
-            MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
-            MediaPlayer.Play();
+
+                //https://code.videolan.org/videolan/LibVLCSharp/blob/3.x/LibVLCSharp/Shared/MediaPlayerElement/AspectRatioManager.cs
+                if (MediaPlayer is null)
+                { //Scale 2 for fit screen
+                    MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true, AspectRatio = null, Scale = 0, Fullscreen = true };
+                    MediaPlayer.Play();
+                }
+            }
         }
 
         public void OnDisappearing()
         {
             if (MediaPlayer.IsPlaying)
             {
-                MediaPlayer.Stop();                
+                MediaPlayer.Pause();
             }
 
             LibVLC.Dispose();
         }
+
+        //With Prism, we can get the time, position and Media of the Full screen (OnlyVideoViewModel) MediaPlayer and set the MediaPlayer of this ViewModel, in the OnNavigatedTo method
 
         private void Set<T>(string propertyName, ref T field, T value)
         {
@@ -77,6 +82,5 @@ namespace VLCSample
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
     }
 }
