@@ -8,25 +8,27 @@ namespace VLCSample
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OnlyVideoPage : ContentPage
     {
+        private readonly OnlyVideoViewModel _viewModel;
         public OnlyVideoPage(MediaPlayer mediaPlayer)
         {
             InitializeComponent();
 
-            var viewModel = BindingContext as OnlyVideoViewModel;
-            viewModel.PreviousMediaPlayer = mediaPlayer;
+            _viewModel = BindingContext as OnlyVideoViewModel;
+            _viewModel.PreviousMediaPlayer = mediaPlayer;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            ((OnlyVideoViewModel)BindingContext).OnAppearing();
+            _viewModel.OnAppearing();
+            mediaPlayer.PlaybackControls = _viewModel.PlaybackControls;
             DeviceDisplay.MainDisplayInfoChanged += OnMainDisplayInfoChanged;
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
-            ((OnlyVideoViewModel)BindingContext).OnDisappearing();
+            _viewModel.OnDisappearing();
             DeviceDisplay.MainDisplayInfoChanged -= OnMainDisplayInfoChanged;
         }
 

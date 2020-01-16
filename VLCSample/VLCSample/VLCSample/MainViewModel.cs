@@ -1,4 +1,5 @@
-﻿using LibVLCSharp.Shared;
+﻿using LibVLCSharp.Forms.Shared;
+using LibVLCSharp.Shared;
 using System.ComponentModel;
 
 namespace VLCSample
@@ -37,6 +38,15 @@ namespace VLCSample
             private set => Set(nameof(MediaPlayer), ref _mediaPlayer, value);
         }
 
+        private PlaybackControls _playbackControls;
+
+        public PlaybackControls PlaybackControls
+        {
+            get => _playbackControls;
+            private set => Set(nameof(PlaybackControls), ref _playbackControls, value);
+        }
+
+
         /// <summary>
         /// Initialize LibVLC and playback when page appears
         /// </summary>
@@ -53,12 +63,14 @@ namespace VLCSample
                     FromType.FromLocation);
 
 
+                PlaybackControls = new PlaybackControls { IsAspectRatioButtonVisible = false };
+
                 //https://code.videolan.org/videolan/LibVLCSharp/blob/3.x/LibVLCSharp/Shared/MediaPlayerElement/AspectRatioManager.cs
                 if (MediaPlayer is null)
                 { //Scale 2 for fit screen
                     MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true, AspectRatio = null, Scale = 0, Fullscreen = true };
                     MediaPlayer.Play();
-                }
+                }                
             }
         }
 

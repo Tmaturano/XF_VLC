@@ -1,4 +1,5 @@
-﻿using LibVLCSharp.Shared;
+﻿using LibVLCSharp.Forms.Shared;
+using LibVLCSharp.Shared;
 using System.ComponentModel;
 
 namespace VLCSample
@@ -23,9 +24,19 @@ namespace VLCSample
 
         public MediaPlayer PreviousMediaPlayer { get; set; }
 
+        private PlaybackControls _playbackControls;
+
+        public PlaybackControls PlaybackControls
+        {
+            get => _playbackControls;
+            private set => Set(nameof(PlaybackControls), ref _playbackControls, value);
+        }
+
         public void OnAppearing()
         {
             //With Prism, we can pass the time, position and Media in the OnNavigatedTo method
+
+            PlaybackControls = new PlaybackControls { IsAspectRatioButtonVisible = false };
 
             MediaPlayer = new MediaPlayer(PreviousMediaPlayer.Media) { EnableHardwareDecoding = true, AspectRatio = null, Scale = 2, Fullscreen = true }; 
 

@@ -22,19 +22,20 @@
         </Grid.RowDefinitions>
 
         <vlc:MediaPlayerElement
+            x:Name="mediaPlayer"
             Grid.Row="0"
             LibVLC="{Binding LibVLC}"
             MediaPlayer="{Binding MediaPlayer}" />
 
         <Button
             Grid.Row="0"
-            Margin="0,0,5,10"
+            Margin="0,0,10,15"
             BackgroundColor="White"
             Clicked="Button_Clicked"
-            HeightRequest="35"
+            HeightRequest="25"
             HorizontalOptions="End"
             VerticalOptions="End"
-            WidthRequest="35" />
+            WidthRequest="25" />
 
 
         <Label Grid.Row="1" Text="Test" />

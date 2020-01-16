@@ -15,6 +15,7 @@
         <StackLayout />
     </NavigationPage.TitleView>
     <vlc:MediaPlayerElement
+        x:Name="mediaPlayer"
         HorizontalOptions="FillAndExpand"
         LibVLC="{Binding LibVLC}"
         MediaPlayer="{Binding MediaPlayer}"
